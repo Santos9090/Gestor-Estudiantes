@@ -11,10 +11,21 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
 import java.sql.SQLException;
 
+/**
+ * La clase Opciones representa un menú de opciones para un estudiante en la
+ * interfaz gráfica.
+ */
 public class Opciones extends JFrame {
 
 	private static final long serialVersionUID = -8867431187218175243L;
 
+	/**
+	 * Constructor de la clase Opciones.
+	 *
+	 * @param x  La posición en el eje x para mostrar el menú.
+	 * @param y  La posición en el eje y para mostrar el menú.
+	 * @param id El ID del estudiante al cual se aplicarán las opciones.
+	 */
 	public Opciones(int x, int y, int id) {
 		setAlwaysOnTop(true);
 		setUndecorated(true);

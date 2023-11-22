@@ -10,13 +10,9 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Vector;
 
 import javax.swing.SwingConstants;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
 import principal.Principal;
 import javax.swing.JTextField;
@@ -24,6 +20,9 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * La clase Registro representa la pantalla de registro de nuevos estudiantes.
+ */
 public class Registro extends JFrame {
 
 	private static final long serialVersionUID = -2434606298754248881L;
@@ -33,6 +32,12 @@ public class Registro extends JFrame {
 	private JTextField Edad;
 	private JTextField Curso;
 
+	/**
+	 * Constructor de la clase Registro.
+	 *
+	 * @param tb La instancia de la clase Inicio a la cual se notificarán los
+	 *           cambios en el registro.
+	 */
 	public Registro(Inicio tb) {
 		setSize(800, 532);
 		setLocationRelativeTo(null);

@@ -3,7 +3,6 @@ package pantallas;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
@@ -11,9 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -24,15 +20,16 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SpinnerListModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import principal.Principal;
 
+/**
+ * La clase Inicio representa la pantalla principal de registro de estudiantes.
+ */
 public class Inicio extends JFrame {
 
 	private static final long serialVersionUID = -2120984908659307032L;
@@ -40,6 +37,9 @@ public class Inicio extends JFrame {
 	private String[] Orders;
 	private JTable table;
 
+	/**
+	 * Constructor de la clase Inicio.
+	 */
 	public Inicio() {
 		setTitle("Registro");
 		contentPane = new JPanel(new BorderLayout());
@@ -98,6 +98,12 @@ public class Inicio extends JFrame {
 		setContentPane(contentPane);
 	}
 
+	/**
+	 * Genera y retorna una tabla con la información de los estudiantes.
+	 *
+	 * @param C La consulta SQL para obtener la información de los estudiantes.
+	 * @return Una instancia de JTable con la información de los estudiantes.
+	 */
 	private JTable generarTabla(String C) {
 		DefaultTableModel tableModel = crearModelo(C);
 		table = new JTable(tableModel);
@@ -112,6 +118,12 @@ public class Inicio extends JFrame {
 		return table;
 	}
 
+	/**
+	 * Crea y retorna el modelo de tabla con la información de los estudiantes.
+	 *
+	 * @param C La consulta SQL para obtener la información de los estudiantes.
+	 * @return Un DefaultTableModel con la información de los estudiantes.
+	 */
 	private DefaultTableModel crearModelo(String C) {
 		Vector<Vector<String>> data = new Vector<>();
 		ResultSet consulta = null;
@@ -142,6 +154,13 @@ public class Inicio extends JFrame {
 		return tableModel;
 	}
 
+	/**
+	 * Crea y retorna un botón con el nombre y color especificados.
+	 *
+	 * @param Nombre El nombre del botón.
+	 * @param color  El color del botón ("Amarillo" o "Naranja").
+	 * @return Un JButton configurado con el nombre y color especificados.
+	 */
 	private JButton crearBoton(String Nombre, String color) {
 		JButton boton = new JButton(Nombre);
 		boton.setPreferredSize(new Dimension(getWidth() / 3, 40));
@@ -156,6 +175,13 @@ public class Inicio extends JFrame {
 		return boton;
 	}
 
+	/**
+	 * Realiza el cambio en la base de datos cuando se modifica una celda en la
+	 * tabla.
+	 *
+	 * @param row   La fila de la celda modificada.
+	 * @param colum La columna de la celda modificada.
+	 */
 	public void change(int row, int colum) {
 		TableModel aux = table.getModel();
 		String cambio = (String) aux.getValueAt(row, colum);
@@ -172,6 +198,9 @@ public class Inicio extends JFrame {
 		}
 	}
 
+	/**
+	 * Recarga la tabla con la información original de los estudiantes.
+	 */
 	public void recargar() {
 		table.setModel(crearModelo("select * from estudiantes"));
 	}
