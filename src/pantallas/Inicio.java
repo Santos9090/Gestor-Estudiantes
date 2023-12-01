@@ -128,8 +128,9 @@ public class Inicio extends JFrame {
 		Vector<Vector<String>> data = new Vector<>();
 		ResultSet consulta = null;
 		Vector<String> columns = new Vector<>();
+		java.sql.Statement st = null;
 		try {
-			java.sql.Statement st = Principal.BD.getCon().createStatement();
+			st = Principal.BD.getCon().createStatement();
 			consulta = st.executeQuery(C);
 			java.sql.ResultSetMetaData metaData = consulta.getMetaData();
 			int columnCount = metaData.getColumnCount();
@@ -149,6 +150,14 @@ public class Inicio extends JFrame {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				st.close();
+				consulta.close();
+				Principal.BD.cerrarConex();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		DefaultTableModel tableModel = new DefaultTableModel(data, columns);
 		return tableModel;
@@ -187,14 +196,23 @@ public class Inicio extends JFrame {
 		String cambio = (String) aux.getValueAt(row, colum);
 		String columna = table.getColumnName(colum);
 		String id = (String) aux.getValueAt(row, 0);
+		java.sql.Statement st = null;
 		try {
-			java.sql.Statement st = Principal.BD.getCon().createStatement();
+			st = Principal.BD.getCon().createStatement();
 			String query = "UPDATE estudiantes SET " + columna + "  = '" + cambio + "' WHERE ID='" + id + "';";
 			st.executeUpdate(query);
 			JOptionPane.showMessageDialog(this, "Cambio Realizado", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 		} catch (SQLException e) {
 			System.out.println("Fallo en actualizacion de la tabla");
 			e.printStackTrace();
+		} finally {
+			try {
+				st.close();
+				Principal.BD.cerrarConex();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 

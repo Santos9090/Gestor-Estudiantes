@@ -48,8 +48,9 @@ public class Opciones extends JFrame {
 		opcion2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				java.sql.Statement st = null;
 				try {
-					java.sql.Statement st = Principal.BD.getCon().createStatement();
+					st = Principal.BD.getCon().createStatement();
 					String query = "DELETE FROM estudiantes WHERE id=" + id;
 					st.executeUpdate(query);
 					Principal.inicio.recargar();
@@ -58,6 +59,14 @@ public class Opciones extends JFrame {
 				} catch (SQLException e1) {
 					System.out.println("Fallo en actualizacion de la tabla");
 					e1.printStackTrace();
+				} finally {
+					try {
+						st.close();
+						Principal.BD.cerrarConex();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			}
 		});

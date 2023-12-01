@@ -18,7 +18,7 @@ public class Principal {
 
 	/**
 	 * La instancia de la clase Inicio que representa la ventana principal del
-	 * programa.
+	 * programa.º
 	 */
 	public static Inicio inicio = new Inicio();
 

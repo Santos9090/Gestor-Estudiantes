@@ -22,20 +22,7 @@ public class ConexionDataBase {
 	 */
 	public ConexionDataBase() {
 		cargarDriver();
-		try {
-			Properties propiedades = new Properties();
-			propiedades.load(new FileReader("conexion.properties"));
-			String direccion = propiedades.getProperty("URL");
-			con = DriverManager.getConnection(direccion, propiedades.getProperty("USER"),
-					propiedades.getProperty("PWD"));
-		} catch (SQLException e) {
-			System.out.println("Fallo la conexión con la base de datos");
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+
 	}
 
 	/**
@@ -44,6 +31,16 @@ public class ConexionDataBase {
 	 * @return La conexión con la base de datos.
 	 */
 	public Connection getCon() {
+		Properties propiedades = new Properties();
+		try {
+			propiedades.load(new FileReader("conexion.properties"));
+			String direccion = propiedades.getProperty("URL");
+			con = DriverManager.getConnection(direccion, propiedades.getProperty("USER"),
+					propiedades.getProperty("PWD"));
+		} catch (IOException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return con;
 	}
 
@@ -57,5 +54,10 @@ public class ConexionDataBase {
 			e.printStackTrace();
 			System.out.println("Fallo en la carga del controlador JDBC");
 		}
+	}
+
+	public void cerrarConex() throws SQLException {
+		con.close();
+
 	}
 }

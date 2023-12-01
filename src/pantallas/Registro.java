@@ -89,8 +89,8 @@ public class Registro extends JFrame {
 		JButton btn = new JButton("Registrar");
 		btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				java.sql.Statement st = null;
 				try {
-					java.sql.Statement st = Principal.BD.getCon().createStatement();
 					String query = "INSERT INTO Estudiantes (Nombre,edad,curso) VALUES ('" + Nombre.getText() + "','"
 							+ Edad.getText() + "','" + Curso.getText() + "')";
 					st.executeUpdate(query);
@@ -100,6 +100,14 @@ public class Registro extends JFrame {
 				} catch (SQLException e33) {
 					System.out.println("Fallo en actualizacion de la tabla");
 					e33.printStackTrace();
+				} finally {
+					try {
+						st.close();
+						Principal.BD.cerrarConex();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			}
 		});
