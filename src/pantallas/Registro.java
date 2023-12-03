@@ -102,7 +102,6 @@ public class Registro extends JFrame {
 					e33.printStackTrace();
 				} finally {
 					try {
-						st.close();
 						Principal.BD.cerrarConex();
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
